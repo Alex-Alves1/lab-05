@@ -7,7 +7,7 @@
 
 ## References and Resources
 -Used Google Gemini to help create queries for editing and deleting entries in the database, as cited within the code.
-List any resources used here, or simply put `N/A` if not applicable.
+
 
 ## Verbal Collaboration
 
