@@ -229,6 +229,11 @@ public class MainActivity extends AppCompatActivity implements CityDialogFragmen
                 })
                 .addOnFailureListener(e -> Log.e("Firestore", "Error finding document to update", e));
         // The SnapshotListener will handle updating the UI automatically.
+
+        for (int i = 0; i < cityListView.getChildCount(); i++) {
+            View childView = cityListView.getChildAt(i);
+            childView.setBackgroundColor(android.graphics.Color.TRANSPARENT);
+        }
     }
 
     @Override
