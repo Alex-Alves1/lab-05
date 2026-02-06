@@ -109,47 +109,6 @@ public class MainActivity extends AppCompatActivity implements CityDialogFragmen
             }
         });
 
-        delButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (currentCity == null || currentIndex == null) {
-                    return;
-                }
-                //This function call was a modified version of what was provided by Google Gemini on February 4th 2026,
-                //"How does the delete button call interact with the firestore database, how would I set that query up?"
-                citiesRef
-                        .whereEqualTo("name", currentCity.getName())       // Use the name from the selected city
-                        .whereEqualTo("province", currentCity.getProvince()) // Use the province from the selected city
-                        .get()
-                        .addOnSuccessListener(queryDocumentSnapshots -> {
-                            // This task is successful when the query completes.
-                            // Now, loop through the results (usually just one) and delete each document found.
-                            for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
-                                doc.getReference().delete()
-                                        .addOnSuccessListener(aVoid -> {
-                                            // Successfully deleted from Firestore
-                                            Log.d("Firestore", "DocumentSnapshot successfully deleted!");
-
-                                            // 3. Reset the selection state in the UI
-                                            currentCity = null;
-                                            currentIndex = null;
-                                            currentView = null;
-                                            // The snapshot listener will automatically update the list,
-                                            // so we don't need to call notifyDataSetChanged() here.
-                                        })
-                                        .addOnFailureListener(e -> Log.w("Firestore", "Error deleting document", e));
-                            }
-                        })
-                        .addOnFailureListener(e -> Log.e("Firestore", "Error finding document to delete", e));
-
-                //after a delete reset all items, so the highlight doesnt stay
-                for (int i = 0; i < cityListView.getChildCount(); i++) {
-                    View childView = cityListView.getChildAt(i);
-                    childView.setBackgroundColor(android.graphics.Color.TRANSPARENT);
-                }
-            }
-        });
-
         editButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
