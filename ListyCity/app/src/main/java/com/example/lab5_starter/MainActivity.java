@@ -106,6 +106,11 @@ public class MainActivity extends AppCompatActivity implements CityDialogFragmen
                             }
                         })
                         .addOnFailureListener(e -> Log.e("Firestore", "Error finding document to delete", e));
+
+                        for (int i = 0; i < cityListView.getChildCount(); i++) {
+                            View childView = cityListView.getChildAt(i);
+                            childView.setBackgroundColor(android.graphics.Color.TRANSPARENT);
+                        }
             }
         });
 
